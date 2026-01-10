@@ -1,41 +1,34 @@
-'''
-TablePickのエントリーポイント
-全体の流れを制御する
-'''
+"""
+tablepick/__main__.py
+
+`python -m tablepick ...` の実行エントリポイント。
+
+方針:
+- 実際の CLI 実行は cli/main.py の main() に委譲する。
+- main() が返す終了コードをそのまま sys.exit() に渡す。
+"""
+
+from __future__ import annotations
 
 import sys
-import requests
-from urllib.parse import urlparse
 
-headers = {"User-Agent": f"MyTool/1.1 (xxxx@xxx.com) UsedBaseLibrary/1.4"}
 
-# ユーザーからURLを受け取る
-target_url = input("input target URL: ")
-parsed = urlparse(target_url)
+def _run() -> int:
+    # CLI 実装は cli/main.py に集約
+    from cli.main import main as cli_main
 
-# URLを検証する
-if not parsed.scheme or not parsed.netloc:
-    print("Error: Invalid URL format")
-    sys.exit(1)
+    code = cli_main(sys.argv[1:])
 
-# URL先のコンテンツを取得する
-try:
-    print(f"Target URL: {target_url}")
-    response = requests.get(target_url, headers=headers, timeout=10)
-    print(f"HTTP Status Code: {response.status_code}")
+    # 念のため: None が返ってきた場合は成功扱いに寄せる
+    if code is None:
+        return 0
 
-    if response.status_code == 200:
-        content = response.text
-        print("Content retrieved successfully.")
-    else:
-        print(f" Failed: status code {response.status_code}")
+    try:
+        return int(code)
+    except Exception:
+        # 変な値が返った場合は想定外として 2
+        return 2
 
-except requests.exceptions.Timeout:
-    print("Error: Request timed out")
 
-except requests.exceptions.HTTPError as e:
-    print(f"HTTP Error: {e}")
-
-except requests.exceptions.ConnectionError as e:
-    print(f"Connection Error: {e}")
-
+if __name__ == "__main__":
+    raise SystemExit(_run())
