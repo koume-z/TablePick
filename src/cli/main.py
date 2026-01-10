@@ -80,6 +80,10 @@ def _maybe_prompt_and_extend_argv(argv_list: list[str]) -> list[str]:
     """
     argv_set = set(argv_list)
 
+    # --hlp がある場合は prompt しない
+    if "--help" in argv_set or "-h" in argv_set:
+        return argv_list
+
     need_prompt = (
         ("--url" not in argv_set)
         or ("--format" not in argv_set)
