@@ -17,7 +17,6 @@ CLI実行時に未指定の重要オプションを対話形式で補完する�
 - filename-base は空入力を許可し、その場合は "tablepick" を使う。
 - stdout は Y/n で選択できるようにし、デフォルトは True。
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -101,6 +100,7 @@ def _prompt_url() -> str:
             return _validate_url_strict(raw)
         except ValueError as e:
             print(f"[error] {e}")
+            exit()
 
 
 def _prompt_format(*, default: OutputFormat) -> OutputFormat:
@@ -112,6 +112,7 @@ def _prompt_format(*, default: OutputFormat) -> OutputFormat:
             return _normalize_format(raw)
         except ValueError as e:
             print(f"[error] {e}")
+            exit()
 
 
 def _prompt_out_dir() -> Optional[str]:
@@ -146,6 +147,7 @@ def _validate_url_strict(value: str) -> str:
     v = (value or "").strip()
     if not v:
         raise ValueError("URL が空です。例: https://example.com")
+        sys.exit()
 
     parsed = urlparse(v)
     if not parsed.scheme:
