@@ -116,7 +116,7 @@ def _prompt_format(*, default: OutputFormat) -> OutputFormat:
 
 
 def _prompt_out_dir() -> Optional[str]:
-    raw = input("出力先ディレクトリ out-dir（空ならファイル出力しない）: ").strip()
+    raw = input("出力先ディレクトリ out-dir（指定しない場合はファイル出力しない）: ").strip()
     return raw or None
 
 
