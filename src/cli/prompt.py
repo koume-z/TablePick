@@ -129,7 +129,7 @@ def _prompt_stdout(*, default: bool) -> bool:
     # True -> Y/n, False -> y/N
     suffix = "Y/n" if default else "y/N"
     while True:
-        raw = input(f"stdout にも出力しますか？ [{suffix}]: ").strip().lower()
+        raw = input(f"結果を標準出力（stdout）に表示しますか？ [{suffix}]: ").strip().lower()
         if raw == "":
             return default
         if raw in ("y", "yes"):
