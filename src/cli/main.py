@@ -80,10 +80,33 @@ def _maybe_prompt_and_extend_argv(argv_list: list[str]) -> list[str]:
     """
     argv_set = set(argv_list)
 
-    # --hlp がある場合は prompt しない
+    # --help がある場合はヘルプ表示だけ行う
     if "--help" in argv_set or "-h" in argv_set:
         return argv_list
 
+    def _get_opt_value(opt: str) -> Optional[str]:
+        """
+        argv_list から `opt` の値を取り出す。
+        - opt が無い → None
+        - opt があるが値が無い（末尾）→ None
+        - opt の次が別オプションっぽい（-で始まる）→ None
+        """
+        try:
+            i = argv_list.index(opt)
+
+        except ValueError:
+            return None
+
+        if i + 1 >= len(argv_list):
+            return None
+
+        v = argv_list[i + 1]
+        if v.startswith("-"):
+            return None
+
+        return v
+
+    provided_url = _get_opt_value("--url")
     need_prompt = (
         ("--url" not in argv_set)
         or ("--format" not in argv_set)
@@ -97,7 +120,7 @@ def _maybe_prompt_and_extend_argv(argv_list: list[str]) -> list[str]:
 
     pr = cli_prompt.fill_missing_with_prompt(
         argv=argv_list,
-        url=None,  # --url 無しの可能性があるので None
+        url=provided_url,
         fmt="csv",
         out_dir=None,
         filename_base="tablepick",
