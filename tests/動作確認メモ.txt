@@ -1,0 +1,42 @@
+# 追加で事前に確認すべき動作確認（おすすめ順）
+
+1) モジュール起動が通るか（引数なし）
+   python -m tablepick
+   - 期待: URL入力プロンプトが出る / もしくは usage + exit code 1
+   - “対話モード”の入口確認
+
+2) --help が exit code 0 で終わるか
+   python -m tablepick --help
+   echo $LASTEXITCODE   # PowerShell
+   - 期待: 0
+   - さっき修正したポイントの“終了コード”まで確認
+
+3) 不正URLの扱い（scheme無し）
+   python -m tablepick example.com
+   - 期待: エラーメッセージ + exit code 1
+   - URLバリデーション/エラーパス確認
+
+4) 想定フォーマットの指定が効くか（少なくともパースまで到達するか）
+   python -m tablepick https://example.com --format csv
+   python -m tablepick https://example.com --format json
+   - 期待: 取得→変換→出力の経路に入る（テーブル無ければ NoTableFoundError 系で失敗でもOK）
+   - format 分岐の動作確認
+
+5) サポート外フォーマットで落ちるか
+   python -m tablepick https://example.com --format md
+   - 期待: “Unsupported format” 系のメッセージ + exit code 1
+   - output 側の例外経路確認
+
+6) NoTableFoundError が上位で握れているか（テーブルが無いページで検証）
+   python -m tablepick https://example.com --format csv
+   - 期待: “No <table> found” 系のエラー + exit code 1
+   - 例外の伝播とエラーメッセージ品質の確認
+
+7) sys.path 依存の有無（どこで動くかを固定化）
+   - “src 直下で動く”のか “プロジェクトルートで動く”のか、どちらが正かを確定する
+   - 例:
+     cd プロジェクトルート
+     python -m tablepick --help
+     cd src
+     python -m tablepick --help
+   - 期待: どちらか一方で動くなら、その前提をREADMEに書く（または pyproject で install 前提に寄せる）
