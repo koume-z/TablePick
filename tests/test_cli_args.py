@@ -2,7 +2,7 @@ import argparse
 
 import pytest
 
-from cli import args as cli_args
+from tablepick.cli import args as cli_args
 
 
 # 何をしているか: 正常なHTTPS URLを厳格バリデーションに通す。

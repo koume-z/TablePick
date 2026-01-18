@@ -18,9 +18,9 @@ import json
 import sys
 from typing import Optional, Sequence
 
-from core import HtmlFetcher
-from core.converter import HtmlTableConverter
-from core.output import TableOutputWriter
+from tablepick.core import HtmlFetcher
+from tablepick.core.converter import HtmlTableConverter
+from tablepick.core.output import TableOutputWriter
 
 from . import args as cli_args
 from . import prompt as cli_prompt

@@ -1,5 +1,5 @@
 """
-cli package
+tablepick.cli package
 
 TablePick の CLI 層。
 - args.py   : 引数定義・設定生成

@@ -18,8 +18,8 @@ from dataclasses import asdict
 from typing import Optional, Sequence, Literal
 from urllib.parse import urlparse
 
-from core import FetchConfig
-from core.output import OutputOptions
+from tablepick.core import FetchConfig
+from tablepick.core.output import OutputOptions
 
 OutputFormat = Literal["csv", "json"]
 
