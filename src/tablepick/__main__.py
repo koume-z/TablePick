@@ -15,7 +15,7 @@ import sys
 
 def _run() -> int:
     # CLI 実装は cli/main.py に集約
-    from cli.main import main as cli_main
+    from tablepick.cli.main import main as cli_main
 
     code = cli_main(sys.argv[1:])
 

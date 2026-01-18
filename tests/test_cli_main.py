@@ -1,7 +1,7 @@
 from pathlib import Path
 import importlib
 
-cli_main = importlib.import_module("cli.main")
+cli_main = importlib.import_module("tablepick.cli.main")
 
 
 class _DummyResponse:

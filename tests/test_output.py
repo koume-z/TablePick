@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from core.converter import TableData
-from core.output import OutputOptions, TableOutputWriter
+from tablepick.core.converter import TableData
+from tablepick.core.output import OutputOptions, TableOutputWriter
 from tablepick.error import TablePickError
 
 

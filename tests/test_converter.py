@@ -1,6 +1,6 @@
 import pytest
 
-from core.converter import HtmlTableConverter, TableData
+from tablepick.core.converter import HtmlTableConverter, TableData
 from tablepick.error import NoTableFoundError
 
 

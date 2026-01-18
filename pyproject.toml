@@ -18,4 +18,4 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["tablepick", "cli", "core"]
+include = ["tablepick", "tablepick.*"]
