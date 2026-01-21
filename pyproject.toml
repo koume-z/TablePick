@@ -12,6 +12,29 @@ dependencies = [
   "beautifulsoup4",
   "requests",
 ]
+license = {text = "MIT"}
+authors = [
+  {name = "koume-z"},
+]
+keywords = ["html", "table", "csv", "json", "scraping"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Text Processing",
+]
+
+[project.urls]
+Repository = "https://github.com/koume-z/TablePick"
+Issues = "https://github.com/koume-z/TablePick/issues"
+
+[project.scripts]
+tablepick = "tablepick.cli.main:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
