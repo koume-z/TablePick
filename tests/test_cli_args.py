@@ -2,6 +2,7 @@ import argparse
 
 import pytest
 
+from tablepick import __version__
 from tablepick.cli import args as cli_args
 
 
@@ -47,3 +48,16 @@ def test_make_output_options_from_args() -> None:
     assert opt.stdout is False
     assert opt.indent == 2
     assert opt.ensure_ascii is True
+
+
+# 何をしているか: --version でバージョン表示を行う。
+# 何を確認しているか: 出力内容と exit code が期待通りか。
+# テスト結果の期待値: "tablepick {__version__}" が stdout に出力され、SystemExit.code が 0。
+# テストコードの実行方法: pytest tests/test_cli_args.py
+def test_parse_args_version_outputs_version(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit) as excinfo:
+        cli_args.parse_args(["--version"])
+
+    assert excinfo.value.code == 0
+    captured = capsys.readouterr()
+    assert captured.out.strip() == f"tablepick {__version__}"
