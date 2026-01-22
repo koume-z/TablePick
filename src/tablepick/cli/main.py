@@ -80,8 +80,8 @@ def _maybe_prompt_and_extend_argv(argv_list: list[str]) -> list[str]:
     """
     argv_set = set(argv_list)
 
-    # --help がある場合はヘルプ表示だけ行う
-    if "--help" in argv_set or "-h" in argv_set:
+    # --help / --version がある場合はヘルプ/バージョン表示だけ行う
+    if "--help" in argv_set or "-h" in argv_set or "--version" in argv_set:
         return argv_list
 
     def _get_opt_value(opt: str) -> Optional[str]:

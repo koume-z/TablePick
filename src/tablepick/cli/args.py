@@ -18,6 +18,7 @@ from dataclasses import asdict
 from typing import Optional, Sequence, Literal
 from urllib.parse import urlparse
 
+from tablepick import __version__
 from tablepick.core import FetchConfig
 from tablepick.core.output import OutputOptions
 
@@ -105,6 +106,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     # ---- misc ----
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"tablepick {__version__}",
+        help="Show version and exit.",
+    )
     parser.add_argument(
         "--debug",
         dest="debug",
